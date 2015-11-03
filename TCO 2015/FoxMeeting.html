@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TopCoder 2015 TopCoder Open Algorithm - 600: FoxMeeting</title>
+    
+    <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
+    
+
+    
+    <style type="text/css">
+        /* font */
+body {
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.2em;
+}
+ul.constraints > li:before, ul.notes > li:before {
+    font-family: monospace;
+    font-weight: normal;
+}
+.heading {
+    font-weight: bold;
+    font-size: 175%;
+    line-height: 1.2em;
+}
+.section .section-title {
+    font-weight: bold;
+    font-size: 125%;
+}
+ol.testcases > li:before {
+    font-family: monospace;
+}
+type {
+    font-weight: bold;
+    font-family: monospace;
+}
+li.testcase .data {
+    font-family: monospace;
+    line-height: 1.5em;
+}
+
+/* layout */
+.heading {
+    margin-top: 0.1em;
+    margin-bottom:0.1em;
+    text-align: center;
+}
+.section .section-title {
+    margin-top : 1em;
+    margin-bottom: 1em;
+}
+.problem-intro, note, user-constraint {
+    padding-left: 1.25em;
+}
+
+/* Lists */
+ul.constraints, ul.notes, ul.variables, ul.problem-definition-lines {
+    list-style-type: none;
+    padding: 0px;
+}
+ul.constraints > li:before {
+    content: "-";
+    position:relative;
+    margin-left: 0px; /* optional, for multiline li element */
+    left: 0.625em;
+}
+ul.notes > li:before {
+    content: "-";
+    position:relative;
+    margin-left: 0px; /* optional, for multiline li element */
+    left: 0.625em;
+}
+
+/* Testcases */
+li.testcase {
+    line-height: 1.1em;
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+    overflow: auto;
+}
+li.testcase > .testcase-content > div { padding-bottom: 0.5em; padding-left: 1em; }
+
+li.testcase .testcase-comment {
+    margin: 0;
+    padding-left: 1em;
+}
+.testcase-comment p:first-child { margin-top: 0; }
+.testcase-comment p:last-child { margin-bottom: 0; }
+
+li.testcase .testcase-content {
+    margin: 0.31em;
+}
+
+/* Data and variables */
+.testcase-output {
+    padding: 0.2em 1em 0.2em 0em;
+}
+.variables, .testcase-output {
+    margin-left: 0.5em;
+    display: table;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.variable {
+    display: table-row;
+}
+.variable .name {
+    padding: 0.2em 0em 0.2em 1em;
+    font-weight: bold;
+    display: table-cell;
+    text-align: right;
+}
+.testcase-output .prefix {
+    padding: 0.2em 0em 0.2em 1em;
+    display: table-cell;
+}
+.testcase-output .prefix:after {
+    content : ":";
+    padding-right: 0.5em;
+}
+.variable .name:after {
+    font-weight: bold;
+    content : ":";
+    padding-right: 0.5em;
+}
+.variable .value, .testcase-output .value {
+    padding: 0.2em 1em 0.2em 0em;
+    display: table-cell;
+}
+ol.testcases {
+    padding: 0px;
+    counter-reset: test_number -1;
+}
+ol.testcases > li {
+    list-style:none;
+}
+ol.testcases > li:before {
+    counter-increment:test_number;
+    display: block;
+    clear: both;
+    content:counter(test_number) ")";
+    color: inherit;
+    background: inherit;
+}
+
+/* Problem Definition */
+.problem-definition, .problem-limits {
+    padding-left: 1.25em;
+}
+.problem-definition-lines, .limit-lines {
+    display: table;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+.definition-line, .limit-line {
+    display: table-row;
+    height: 1.5em;
+    overflow: auto;
+}
+.limit-name:after {
+    content: ":";
+    margin-right: 1em;
+}
+.definition-name, .definition-value, .limit-name, .limit-value {
+    display: table-cell;
+}
+.definition-value {
+    padding-left: 0.5em;
+}
+.definition-name:after {
+    content: ":";
+}
+#contest-division:before {
+    content: "Div ";
+}
+#problem-score:before {
+    content: "- Problem ";
+}
+#problem-name {
+    display: block;
+}
+
+/* Tags, hidden default */
+.tag {
+    visibility: hidden;
+    position: absolute;
+}
+
+        body {
+    /* font color */
+    color: #333333;
+    /* background color */
+    background-color: white;
+}
+.section .section-title {
+    /* title color */
+    color: black;
+}
+li.testcase .data {
+    /* highlight color */
+    background: #eee;
+}
+
+    </style>
+    
+    
+    
+
+</head>
+
+<body>
+    <h1 class="heading">
+        <span id='contest-name'>2015 TopCoder Open Algorithm</span>
+        
+        <span id='problem-score'>600</span>
+        <span id='problem-name'>FoxMeeting</span>
+    </h1>
+
+    <hr />
+
+    <!-- Problem Statement -->
+    <div class="section">
+        <h2 class="section-title">Problem Statement</h2>
+        <div class="problem-intro">
+            <intro escaped="1"><p>
+Foxland is a country with n cities.
+The cities are numbered 1 through n.
+The road network in Foxland is a tree.
+You are given the description of the roads: three <type>int[]</type>s <b>A</b>, <b>B</b> and <b>L</b> with n-1 elements each.
+For each valid i, there is a bidirectional road connecting the cities <b>A</b>[i] and <b>B</b>[i], and the length of the road is <b>L</b>[i].
+</p>
+
+<p></p>
+
+<p>
+There are some foxes in Foxland.
+Each fox lives in a different city.
+You are given a <type>int[]</type> <b>foxes</b>.
+The elements of <b>foxes</b> are the numbers of cities inhabited by foxes.
+</p>
+
+<p></p>
+<p>
+The foxes are running a secret candy-smuggling network.
+Recently they have been harrassed by a new strict police officer: cat Taro.
+In order to avoid him, the foxes have now learned to communicate by waving their tails at each other.
+However, two foxes can only communicate in this way if they see each other.
+More precisely, they must either both be in the same city, or they have to be in two adjacent cities.
+(Adjacent cities are cities directly connected by a road, regardless of the road's length.)
+</p>
+
+<p></p>
+
+<p>
+Foxes can forward messages to other foxes, which makes communication transitive:
+If fox x can talk to fox y and fox y can talk to fox z, fox x will be able to communicate with fox z as well.
+</p>
+
+<p></p>
+
+<p>
+In order to avoid Taro, each fox must be able to talk to all other foxes (either directly or indirectly).
+If it isn't possible in their current configuration, some foxes may be forced to move into different cities.
+The foxes think that it is also suspicious if a fox moves too far from its current home.
+Therefore, they want to minimize the maximum distance traveled by any fox.
+</p>
+
+<p></p>
+
+<p>
+Formally, find and return the smallest integer D with the following property:
+It is possible to relocate some (possibly zero, possibly all) of the foxes into new cities in such a way that:
+<ul>
+<li>For each fox, the total total distance traveled by that fox is at most D.</li>
+<li>After the relocation, all foxes can communicate (either directly or indirectly).</li>
+</ul>
+</p></intro>
+        </div>
+    </div>
+    
+    <!-- Problem definition -->
+    
+    <div class="section" id="definition">
+        <h2 class="section-title">Definition</h2>
+        <div class="problem-definition">
+            <ul class="problem-definition-lines">
+                <li class="definition-line" id='class-line'>
+                    <span class='definition-name'>Class</span>
+                    <span class='definition-value'>FoxMeeting</span>
+                </li>
+                <li class="definition-line" id='method-line'>
+                    <span class='definition-name'>Method</span>
+                    <span class='definition-value'>maxDistance</span>
+                </li>
+                <li class="definition-line" id='parameters-line'>
+                    <span class='definition-name'>Parameters</span>
+                    <span class='definition-value'>
+                    
+                        vector&lt;int&gt;
+                    , 
+                        vector&lt;int&gt;
+                    , 
+                        vector&lt;int&gt;
+                    , 
+                        vector&lt;int&gt;
+                    
+                    </span>
+                </li>
+                <li class="definition-line" id='returns-line'>
+                    <span class='definition-name'>Returns</span>
+                    <span class='definition-value'>
+                        int
+                    </span>
+                </li>
+                <li class="definition-line" id='signature-line'>
+                    <span class='definition-name'>Method signature</span>
+                    <span class='definition-value'>
+                        int maxDistance(vector&lt;int&gt; A, vector&lt;int&gt; B, vector&lt;int&gt; L, vector&lt;int&gt; foxes)
+                    </span>
+                </li>
+            </ul>
+            <div class="problem-definition-public-tip">(be sure your method is public)</div>
+        </div>        
+    </div>
+    
+
+    <!-- Limits -->
+    <div class="section">
+        <h2 class="section-title">Limits</h2>
+        <div class='problem-limits'>
+            <ul class="limit-lines">
+                <li class='limit-line'>
+                    <span class='limit-name'>Time limit (s)</span>
+                    <span class='limit-value'>2.000</span>
+                </li>
+                <li class='limit-line'>
+                    <span class='limit-name'>Memory limit (MB)</span>
+                    <span class='limit-value'>256</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+    
+    <!-- Constraints -->
+    <div class="section">
+        <h2 class="section-title">Constraints</h2>
+        <ul class="constraints">
+        
+            <li><user-constraint escaped="1">n will be between 1 and 50, inclusive.</user-constraint></li>
+        
+            <li><user-constraint escaped="1"><b>A</b>, <b>B</b>, and <b>L</b> will contain exactly n-1 elements each.</user-constraint></li>
+        
+            <li><user-constraint escaped="1">Each element in <b>A</b> and <b>B</b> will be between 1 and n, inclusive.</user-constraint></li>
+        
+            <li><user-constraint escaped="1">Each element in <b>L</b> will be between 1 and 100,000, inclusive.</user-constraint></li>
+        
+            <li><user-constraint escaped="1"><b>A</b>, <b>B</b>, and <b>L</b> will define a tree.</user-constraint></li>
+        
+            <li><user-constraint escaped="1">Number of elements in <b>foxes</b> will be between 1 and n, inclusive.</user-constraint></li>
+        
+            <li><user-constraint escaped="1">Each element in <b>foxes</b> will be between 1 and n, inclusive.</user-constraint></li>
+        
+            <li><user-constraint escaped="1">All the elements of <b>foxes</b> are distinct.</user-constraint></li>
+        
+        </ul>
+    </div>
+
+    <!-- Test cases -->
+    <div class="section">
+        <h2 class="section-title">Test cases</h2>
+        <ol class="testcases" start='0'>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 1 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 2 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 5 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 1, 2 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            0
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">There are two cities connected by a single road of length 5.
+There are two foxes: one in each city.
+As they are in adjacent cities, they can already communicate so no relocation is necessary.</div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 1, 2 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 2, 3 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 1, 1 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 1, 3 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            1
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">This country has three cities and two roads: 1-2 (length 1) and 2-3 (length 1).
+Initially, there is one fox in city 1 and another fox in city 3.
+In one optimal solution, the first fox will move from city 1 to city 2.
+In another optimal solution, both foxes will move from their respective cities to city 2.
+In each of the solutions described above we have D = 1.</div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 1, 2 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 2, 3 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 1, 1 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 1, 2, 3 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            0
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">No relocation is necessary, all foxes can already talk to each other.</div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 10, 8, 3, 7, 2, 6, 9, 1, 4 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 5, 5, 8, 10, 5, 5, 6, 10, 3 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 71846, 10951, 42265, 37832, 29439, 95676, 83661, 28186, 21216 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            0
+                        
+                        </span>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 8, 15, 22, 24, 2, 25, 13, 26, 18, 4, 9, 29, 1, 12, 3, 16, 14, 21, 19, 27, 17, 7, 20, 10, 30, 11, 6, 5, 23 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 28, 28, 8, 8, 28, 28, 25, 2, 13, 24, 24, 22, 22, 29, 4, 22, 8, 4, 1, 24, 21, 14, 18, 16, 13, 21, 14, 1, 25 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 79374, 40629, 43195, 73589, 24200, 63937, 35339, 7598, 65109, 51764, 11142, 84017, 51078, 58051, 81387, 22035, 34883, 92710, 52283, 57337, 79309, 3383, 41904, 35839, 38242, 43208, 82062, 24676, 71838 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 3, 5, 7, 9, 10, 14, 17, 19, 20, 21, 24, 25, 28 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            107013
+                        
+                        </span>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">A</span>
+                                <span class="value data">
+                                
+                                    { 34, 14, 22, 9, 24, 19, 11, 37, 33, 21, 5, 30, 1, 43, 7, 31, 45, 27, 6, 12, 13, 35, 23, 47, 49, 50, 26, 40, 16, 10, 48, 25, 29, 15, 28, 46, 4, 20, 44, 17, 39, 32, 38, 2, 42, 8, 36, 3, 41 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">B</span>
+                                <span class="value data">
+                                
+                                    { 18, 18, 18, 14, 9, 34, 9, 24, 34, 11, 18, 14, 21, 21, 43, 1, 22, 7, 1, 30, 14, 33, 13, 18, 9, 5, 1, 1, 26, 19, 50, 33, 50, 40, 29, 48, 50, 37, 16, 40, 48, 14, 30, 22, 47, 37, 7, 50, 6 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">L</span>
+                                <span class="value data">
+                                
+                                    { 22051, 11109, 85275, 6691, 43705, 47374, 27748, 5411, 62549, 84079, 89542, 38006, 82198, 24083, 16847, 66335, 3542, 72495, 37378, 73973, 85703, 51682, 68688, 94295, 31337, 90071, 99317, 63484, 43244, 99079, 55857, 34503, 79709, 82140, 91137, 27033, 91599, 61168, 52345, 49569, 58919, 38133, 43361, 40718, 2115, 79278, 88841, 40966, 42023 }
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">foxes</span>
+                                <span class="value data">
+                                
+                                    { 5, 12, 13, 18, 23, 27, 28, 29, 32, 33, 34, 35, 36, 37, 40, 42, 43, 47, 48, 49, 50 }
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            89342
+                        
+                        </span>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+        </ol>
+    </div>
+    <hr />
+
+    This problem statement is the exclusive and proprietary property of TopCoder, Inc. Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited. (c)2003, TopCoder, Inc. All rights reserved.
+</body>
+</html>

@@ -1,0 +1,70 @@
+-- Example 0
+12
+2
+2LL
+3LL
+
+3
+2LL
+2LL
+3LL
+-- Example 1
+7
+1
+7LL
+
+1
+7LL
+-- Example 2
+1764
+3
+2LL
+3LL
+7LL
+
+6
+2LL
+2LL
+3LL
+3LL
+7LL
+7LL
+-- Example 3
+49
+1
+7LL
+
+2
+7LL
+7LL
+-- Example 4
+210
+2
+2LL
+5LL
+
+4
+2LL
+3LL
+5LL
+7LL
+-- Example 5
+100000
+5
+2LL
+2LL
+2LL
+5LL
+5LL
+
+10
+2LL
+2LL
+2LL
+2LL
+2LL
+5LL
+5LL
+5LL
+5LL
+5LL
