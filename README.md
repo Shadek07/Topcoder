@@ -1,1 +1,1 @@
-Mainly my SRM (Single Round Match) codes during the contest.
+Mainly my SRM (Single Round Match) codes during the Topcoder contest.
