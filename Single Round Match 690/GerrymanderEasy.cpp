@@ -40,6 +40,7 @@ class GerrymanderEasy {
         preA[0] = 0;
         preB[0] = 0;
         int i,j,k;
+        //creat two prefix sum arrays
         forl(i,0,n){
             preA[i+1] = preA[i] + A[i];
             preB[i+1] = preB[i] + B[i];
