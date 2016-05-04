@@ -38,6 +38,7 @@ class DoubleString {
         if(n%2 == 1)
             return "not square";
         int a = n/2;
+        //string manipulation
         string s1 = S.substr(0,a);
         string s2 = S.substr(a);
         if(s1 == s2)
