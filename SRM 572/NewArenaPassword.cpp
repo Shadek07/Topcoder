@@ -53,7 +53,7 @@ class NewArenaPassword {
             int mx=0;
             //(j, j+step, j+2*step, j+3*step ...), letters at these indexes should be all equal
             //so a letter that appears most number of times in these indexes shouldn't be changed
-            //change all other letters to the most frequent letter
+            //greedily change all other letters to the most frequent letter
             for(j=i;j<n;j+=step){
                 arr[oldPassword[j]-'a']++;
                 mx = max(mx,arr[oldPassword[j]-'a']);
