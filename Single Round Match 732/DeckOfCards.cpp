@@ -42,7 +42,7 @@ typedef long long  LL;
 typedef vector<int> vi;
 typedef pair<int,int> pii;
 typedef vector<pii> vpii;
-
+//
 string to_string(long long x) { stringstream ss; ss << x; return ss.str(); }
 long long to_int(const string &s) { stringstream ss; ss << s; long long x; ss >> x; return x; }
 
