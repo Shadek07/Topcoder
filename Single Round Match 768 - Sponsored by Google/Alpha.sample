@@ -1,0 +1,28 @@
+-- Example 0
+abctyf
+
+3
+-- Example 1
+abcdefghijklmnopqrstuvwxyz
+
+26
+-- Example 2
+zyx
+
+0
+-- Example 3
+abcdegfhijk
+
+5
+-- Example 4
+ba
+
+0
+-- Example 5
+aabc
+
+1
+-- Example 6
+abcdefghijklmno
+
+15
