@@ -1,0 +1,24 @@
+-- Example 0
+AAAAABBBBB
+
+10
+-- Example 1
+AAAAABBBBA
+
+10
+-- Example 2
+AAAAA
+
+3
+-- Example 3
+AAAAAA
+
+4
+-- Example 4
+AABAABAAB
+
+7
+-- Example 5
+BABABBB
+
+6
