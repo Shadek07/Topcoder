@@ -1,0 +1,11 @@
+try to visit as many new nodes as possible to get new treaures.
+
+stop when you visit the same set of nodes you visited before. The way you can check if you visited a node before is: current node has same number of treasures and numPaths that you had before. There is also a chance that the next node you visit is a brand new node although it has same treasure count and pathcount of any existing node. You can use a probability to determine if it is new or old node. This probability value could be set based on treasureValue and stepCost.
+
+Try to always expand those nodes that have maximum out-degrees.
+
+Whenever you land on a chamber/node, get maximum number of treasures that are allowed.
+
+Maintain a shortest path (with order to visit) for every pair of nodes so that you can backtrack to the node quickly you wanna visit.
+
+From a chamber, choose the edge that was chosen least number of times in the past. Use a probability distribution.
